@@ -5,8 +5,9 @@ This project is only a ant script which can help java web developer
 generate war package automatically. 
 
 Project Example structure:You only need to copy build.xml file from my project to your own project 
-     
-     
+
+ [1]: https://github.com/doctormacky/web-ant/blob/master/structure.png     
+
 中文说明
 ============================
 
