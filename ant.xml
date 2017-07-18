@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="qx-console" default="deploy" basedir="." > 
+ <property name="src.dir"   value="src" description="project src folder"/>
+ <property name="config.dir" value="config" description="configuration file"></property>
+ <property name="webcontent.dir" value="WebContent" description="WebContent"/>
+ <property name="lib.dir"   value="WEB-INF/lib"/>
+ <property name="web-inf.dir"  value="${webcontent.dir}/WEB-INF"/>
+ <property name="build.dir"   value="build" description="classes file"/>
+ <property name="dist.dir"   value="dist" description="deposite war file and javac temply."/>
+ <!--<property name="tomcat.home" value="/Users/macky/ant" description="tomcat webapps路径"/>-->
+ <path id="project.classpath" description="jar path">
+   <fileset dir="${webcontent.dir}/${lib.dir}">
+    <include name="*.jar"/>
+   </fileset>
+ </path>
+ 
+ <target name="clean">
+  <delete dir="${build.dir}"></delete>
+  <delete dir="${dist.dir}"></delete>
+  <!--<delete file="${tomcat.home}/${ant.project.name}.war"></delete>
+  <delete dir="${tomcat.home}/${ant.project.name}"></delete>
+  -->
+ 
+ </target>
+ 
+ <target name="init" depends="clean">
+  <mkdir dir="${build.dir}/classes"/>
+  <mkdir dir="${dist.dir}"/>
+ </target>
+ 
+ <target name="compile" depends="init" description="编译java文件">
+  <javac srcdir="${src.dir}"  destdir="${build.dir}/classes">
+   <compilerarg line="-encoding UTF-8"/>
+   <classpath refid="project.classpath"></classpath>
+  </javac>
+  <copy todir="${build.dir}/classes">
+   <fileset dir="${src.dir}">
+    <include name="*.xml"/>
+    <include name="*.jar"/>
+    <include name="log4j.properties"/>
+   </fileset>
+  	<fileset dir="${config.dir}">
+  		<include name="*.xml"/>
+  		<include name="*.properties"/>
+  		<include name="*.json"/>
+  	</fileset>
+  </copy>
+ </target>
+	<target name="publish" depends="compile">
+  <war destfile="${dist.dir}/${ant.project.name}.war" basedir="${webcontent.dir}" webxml="${web-inf.dir}/web.xml">
+   <classes dir="${build.dir}/classes"></classes>
+   <lib dir="${webcontent.dir}/${lib.dir}"></lib> 
+   <fileset dir="WebContent"/>
+  </war>
+ </target>
+ 
+ <target name="deploy" depends="publish">
+ 	<delete dir="${build.dir}"></delete>
+  <!--<copy file="${dist.dir}/${ant.project.name}.war" todir="${tomcat.home}"></copy>-->
+ </target>
+ 
+</project>
