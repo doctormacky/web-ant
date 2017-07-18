@@ -6,11 +6,11 @@ generate war package automatically.
 
 Project Example structure:You only need to copy build.xml file from my project to your own project 
 
- Project >
+ Project
   > Java Resources
-  >    >   src >
-  >    >   config >
-  >    >   Libraries >
+  >    >   src 
+  >    >   config 
+  >    >   Libraries
   > WebContent
  >>>>>>>> <web-file-folders>
  >>>>>>>>> WEB-INF
